@@ -1,0 +1,5 @@
+model: yolo11n.pt
+data: configs/data.yaml
+epochs: 100
+imgsz: 640
+batch: 16
