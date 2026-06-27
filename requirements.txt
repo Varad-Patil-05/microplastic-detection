@@ -3,3 +3,5 @@ opencv-python
 pandas
 matplotlib
 pyyaml
+roboflow
+python-dotenv
