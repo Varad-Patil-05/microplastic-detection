@@ -6,7 +6,7 @@ A YOLOv11 system that detects and quantifies microplastics (bead, fiber, fragmen
 
 ## Results
 
-Trained on the [microplastic-v2-wowak](https://roboflow.com) Roboflow dataset (1,461 train / 140 val images), 50 epochs, YOLOv11n backbone.
+Trained on the [microplastic-v2-wowak](https://universe.roboflow.com/research-new-things-m0fiq/microplastic-v2-wowak) Roboflow dataset (CC BY 4.0), 1,461 train / 140 val images, 50 epochs, YOLOv11n backbone.
 
 | Metric | Value |
 |---|---|
@@ -30,8 +30,8 @@ Bead recall is the weakest class (0.671) — the model misses more bead instance
 ## Limitations
 
 - **Augmented duplicates in dataset.** The Roboflow dataset contains augmented copies of source images in the training and validation splits. This means metrics may be slightly inflated compared to performance on entirely unseen images.
-- **Pixel-only size measurements.** Particle dimensions (width, height, area) are reported in pixels only. No µm calibration is available, so sizes cannot be converted to physical units without a known scale bar per image.
-- **Small model.** YOLOv11n was chosen for the 4 GB GPU constraint. A larger variant (YOLOv11s/m) would likely improve bead recall given more capacity.
+- **Pixel-only size measurements.** Particle dimensions (width, height, area) are reported in pixels only. No µm calibration is available, so sizes cannot be converted to physical units without a known scale bar per image. Observed sizes skew small, consistent with genuinely microscopic particles. Low-confidence detections were rare across the validation set.
+- **Small model.** YOLOv11n was chosen for the 4 GB GPU constraint. A larger variant (YOLOv11s/m) may improve bead recall, though this hasn't been tested.
 - **Three-class scope.** Only bead, fiber, and fragment are detected. Other microplastic morphologies (film, foam, pellet) are outside the current training distribution.
 
 ---
@@ -62,7 +62,7 @@ Downloads the microplastic-v2-wowak dataset into `data/` in YOLOv11 format.
 ```bash
 python src/train.py
 ```
-Trains YOLOv11n for 50 epochs on GPU (device 0), batch 4, imgsz 640. Saves weights to `runs/detect/runs/train-*/weights/`.
+Trains YOLOv11n for 50 epochs on GPU (device 0), batch 4, imgsz 640. Saves weights to `runs/detect/train/weights/`.
 
 **3. Quantify (per-image summary)**
 ```bash
